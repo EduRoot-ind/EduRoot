@@ -1,0 +1,42 @@
+# ─── Composer vendor directories ───────────────────────────────────────────────
+# Omnipay vendor — restore with: cd application/third_party/omnipay && composer install
+application/third_party/omnipay/vendor/
+
+# ─── Runtime / generated files ──────────────────────────────────────────────────
+application/logs/*
+application/tmp/*
+application/cache/*
+!application/logs/index.html
+!application/tmp/index.html
+
+# ─── School-specific uploads (not source code) ──────────────────────────────────
+uploads/*
+!uploads/index.html
+
+# ─── Sensitive configuration — NEVER push credentials to GitHub ─────────────────
+application/config/database.php
+application/third_party/firebase_notification_key.json
+.env
+*.env
+
+# ─── Backup files ───────────────────────────────────────────────────────────────
+*.bak
+*.backup
+*.orig
+
+# ─── Compiled / generated frontend assets ───────────────────────────────────────
+backend/dist/
+backend/themes/
+backend/plugins/
+
+# ─── OS / editor files ──────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# ─── PHP debug / test files ─────────────────────────────────────────────────────
+decrypt_test.php
