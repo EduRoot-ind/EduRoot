@@ -1,0 +1,27 @@
+# Omnipay vendor — restore with: cd application/third_party/omnipay && composer install
+application/third_party/omnipay/vendor/
+
+# Runtime files
+application/logs/*
+application/tmp/*
+application/cache/*
+!application/logs/index.html
+!application/tmp/index.html
+
+# Uploads — school specific data, not source code
+uploads/*
+!uploads/index.html
+
+# Sensitive config — never push passwords to GitHub
+application/config/database.php
+.env
+*.env
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Compiled frontend assets — these are build outputs
+backend/dist/
+backend/themes/
+backend/plugins/
