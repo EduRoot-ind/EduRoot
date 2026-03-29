@@ -1,0 +1,23 @@
+# Omnipay vendor only — run: cd application/third_party/omnipay && composer install
+application/third_party/omnipay/vendor/
+
+# Runtime logs and cache — auto-generated, not needed
+application/logs/*
+application/cache/*
+application/tmp/*
+!application/logs/index.html
+!application/cache/index.html
+!application/tmp/index.html
+
+# Uploaded files — school specific, not source code
+uploads/*
+!uploads/index.html
+
+# OS files
+.DS_Store
+Thumbs.db
+*.bak
+# OS files
+.DS_Store
+Thumbs.db
+*.bak
