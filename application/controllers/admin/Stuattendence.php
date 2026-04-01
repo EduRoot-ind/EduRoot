@@ -28,20 +28,21 @@ class Stuattendence extends Admin_Controller
         $this->session->set_userdata('sub_menu', 'stuattendence/index');
         $sch_setting         = $this->setting_model->getSchoolDetail();
         $data['sch_setting'] = $this->sch_setting_detail;
-        $class                   = $this->class_model->get();
-        $data['classlist']       = $class;
+        $class               = $this->class_model->get();
+        $data['classlist']   = $class;
         $userdata            = $this->customlib->getUserData();
-        $data['class_id']   = "";
-        $data['section_id'] = "";
-        $data['date']       = "";
-		$is_first_time_attendance      = true;
-        $this->form_validation->set_rules('class_id', $this->lang->line('class'), 'trim|required|xss_clean');
+        $data['class_id']    = "";
+        $data['section_id']  = "";
+        $data['date']        = "";
+        $is_first_time_attendance = true;
+
+        $this->form_validation->set_rules('class_id',  $this->lang->line('class'),   'trim|required|xss_clean');
         $this->form_validation->set_rules('section_id', $this->lang->line('section'), 'trim|required|xss_clean');
-        $this->form_validation->set_rules('date', $this->lang->line('date'), 'trim|required|xss_clean');
-        
+        $this->form_validation->set_rules('date',       $this->lang->line('date'),    'trim|required|xss_clean');
+
         if ($this->form_validation->run() == false) {
             $this->load->view('layout/header', $data);
-            $this->load->view('admin/stuattendence/attendenceList', $data); 
+            $this->load->view('admin/stuattendence/attendenceList', $data);
             $this->load->view('layout/footer', $data);
         } else {
 
@@ -54,12 +55,13 @@ class Stuattendence extends Admin_Controller
             $search             = $this->input->post('search');
 
             $student_class_section_setting = $this->studentAttendaceSetting_model->getClassWiseAttendanceSettingByClassAndSection($class, $section);
-            $data['student_class_section_setting']   = ($student_class_section_setting);
+            $data['student_class_section_setting'] = $student_class_section_setting;
 
             $attendencetypes             = $this->attendencetype_model->get();
             $data['attendencetypeslist'] = $attendencetypes;
-            $resultlist                  = $this->stuattendence_model->searchAttendenceClassSection($class, $section, date('Y-m-d', $this->customlib->datetostrtotime($date)));
-            $data['resultlist']          = $resultlist;
+
+            $resultlist              = $this->stuattendence_model->searchAttendenceClassSection($class, $section, date('Y-m-d', $this->customlib->datetostrtotime($date)));
+            $data['resultlist']      = $resultlist;
 
             if (!empty($resultlist)) {
                 foreach ($resultlist as $key => $value) {
@@ -69,66 +71,67 @@ class Stuattendence extends Admin_Controller
                 }
             }
 
-            if($this->input->post('search') == "saveattendence"){
-      
-                $session_ary = $this->input->post('student_session');
-                $attendance_array=[];
-                $absent_student_list=[];
-                $present_student_list=[];
+            if ($this->input->post('search') == "saveattendence") {
+
+                $session_ary          = $this->input->post('student_session');
+                $attendance_array     = [];
+                $absent_student_list  = [];
+                $present_student_list = [];
+
                 foreach ($session_ary as $key => $value) {
                     $checkForUpdate = $this->input->post('attendendence_id' . $value);
                     $attendencetype = $this->input->post('attendencetype' . $value);
-					
-					if($attendencetype==4 || $attendencetype==5){ // absent or holiday
-						$in_time  = null;
-						$out_time = null;
-					} else {
-						$in_time_raw  = $this->input->post("in_time_" . $value);
-						$out_time_raw = $this->input->post("out_time_" . $value);
-					
-						$in_time  = !empty($in_time_raw)  ? date('H:i:s', strtotime($in_time_raw)) : null;
-						$out_time = !empty($out_time_raw) ? date('H:i:s', strtotime($out_time_raw)) : null;
-					}
 
-                   $absent_config = $this->config_attendance['absent'];
-                
+                    if ($attendencetype == 4 || $attendencetype == 5) {
+                        $in_time  = null;
+                        $out_time = null;
+                    } else {
+                        $in_time_raw  = $this->input->post("in_time_" . $value);
+                        $out_time_raw = $this->input->post("out_time_" . $value);
+                        $in_time  = !empty($in_time_raw)  ? date('H:i:s', strtotime($in_time_raw))  : null;
+                        $out_time = !empty($out_time_raw) ? date('H:i:s', strtotime($out_time_raw)) : null;
+                    }
+
+                    $absent_config = $this->config_attendance['absent'];
+
                     if ($attendencetype == $absent_config) {
                         $absent_student_list[] = $value;
-                    }else if(
-                            ($attendencetype == $this->config_attendance["present"]
-                            || $attendencetype == $this->config_attendance["late"]
-                            || $attendencetype == $this->config_attendance["half_day"]
-                            || $attendencetype == $this->config_attendance["half_day_second_shift"] ) && $this->input->post('is_first_time_attendance')
-                        ){
-
-                            $present_student_list['student_sessions_id'][$value] = ($value);
-                            $present_student_list['in_time'][$value] =$this->input->post("in_time_" . $value);
+                    } else if (
+                        ($attendencetype == $this->config_attendance["present"]
+                        || $attendencetype == $this->config_attendance["late"]
+                        || $attendencetype == $this->config_attendance["half_day"]
+                        || $attendencetype == $this->config_attendance["half_day_second_shift"])
+                        && $this->input->post('is_first_time_attendance')
+                    ) {
+                        $present_student_list['student_sessions_id'][$value] = $value;
+                        $present_student_list['in_time'][$value] = $this->input->post("in_time_" . $value);
                     }
-             
-                    $attendance_array[] = array(                       
+
+                    $attendance_array[] = array(
                         'student_session_id' => $value,
                         'attendence_type_id' => $attendencetype,
                         'remark'             => $this->input->post("remark" . $value),
                         'in_time'            => $in_time,
                         'out_time'           => $out_time,
                         'date'               => date('Y-m-d', $this->customlib->datetostrtotime($date)),
-                    );                    
+                    );
                 }
+
                 $this->stuattendence_model->addorUpdate($attendance_array);
+
                 if (!empty($absent_student_list)) {
                     $this->mailsmsconf->mailsms('student_absent_attendence', $absent_student_list, $date);
                 }
-
                 if (!empty($present_student_list)) {
                     $this->mailsmsconf->mailsms('student_present_attendence', $present_student_list, $date);
                 }
 
-                $this->session->set_flashdata('msg', '<div class="alert alert-success text-left">' . $this->lang->line('success_message') . '</div>'); 
-                redirect('admin/stuattendence/index','refresh'); 
+                $this->session->set_flashdata('msg', '<div class="alert alert-success text-left">' . $this->lang->line('success_message') . '</div>');
+                redirect('admin/stuattendence/index', 'refresh');
             }
 
-            $data['is_first_time_attendance']          = $is_first_time_attendance;
-            $data['resultlist']          = $resultlist; 
+            $data['is_first_time_attendance'] = $is_first_time_attendance;
+            $data['resultlist']               = $resultlist;
 
             $this->load->view('layout/header', $data);
             $this->load->view('admin/stuattendence/attendenceList', $data);
@@ -201,7 +204,30 @@ class Stuattendence extends Admin_Controller
             }
             $attendencetypes             = $this->attendencetype_model->get();
             $data['attendencetypeslist'] = $attendencetypes;
-            $resultlist                  = $this->stuattendence_model->searchAttendenceClassSectionPrepare($class, $section, date('Y-m-d', $this->customlib->datetostrtotime($date)));
+            $resultlist = $this->stuattendence_model->searchAttendenceClassSectionPrepare($class, $section, date('Y-m-d', $this->customlib->datetostrtotime($date)));
+
+            // Enrich with parent phone from students table
+            if (!empty($resultlist)) {
+                foreach ($resultlist as $idx => $val) {
+                    $stu_id = $val['std_id'] ?? null;
+                    $phone  = '';
+                    $fname  = '';
+                    if (!empty($stu_id)) {
+                        $stu = $this->db
+                            ->select('guardian_phone, father_phone, mother_phone, father_name')
+                            ->where('id', $stu_id)
+                            ->get('students')->row();
+                        if ($stu) {
+                            foreach (['guardian_phone', 'father_phone', 'mother_phone'] as $f) {
+                                if (!empty($stu->$f)) { $phone = $stu->$f; break; }
+                            }
+                            $fname = $stu->father_name ?? '';
+                        }
+                    }
+                    $resultlist[$idx]['parent_phone'] = $phone;
+                    $resultlist[$idx]['father_name']  = $fname;
+                }
+            }
 
             $data['resultlist']  = $resultlist;
             $data['sch_setting'] = $this->sch_setting_detail;
@@ -344,6 +370,126 @@ class Stuattendence extends Admin_Controller
         }
 
         echo json_encode($array);
+    }
+    public function get_attendance_wa_template() {
+        $filter  = $this->input->get('filter');
+        $type    = ($filter === 'present')
+                   ? 'student_present_attendence'
+                   : 'student_absent_attendence';
+        $this->db->where('type', $type);
+        $row = $this->db->get('notification_setting')->row();
+        echo json_encode([
+            'template' => $row ? $row->template : 'Template not found. Please configure it in Notification Settings.'
+        ]);
+    }
+    
+    public function send_attendance_whatsapp() {
+        $student_session_id = $this->input->post('student_session_id');
+        $attendence_type_id = $this->input->post('attendence_type_id');
+        $date               = $this->input->post('date');
+        $class_id           = $this->input->post('class_id');
+        $section_id         = $this->input->post('section_id');
+        $parent_phone       = $this->input->post('parent_phone');  // already from JS
+        $student_name       = $this->input->post('student_name');  // already from JS
+        $admission_no       = $this->input->post('admission_no');  // already from JS
+        $roll_no            = $this->input->post('roll_no');       // already from JS
+    
+        if (empty($parent_phone)) {
+            echo json_encode([
+                'success' => false,
+                'message' => 'No mobile number',
+                'csrf'    => $this->security->get_csrf_hash()
+            ]);
+            return;
+        }
+    
+        // Get class name
+        $class_name = '';
+        if (!empty($class_id)) {
+            $cls = $this->db->get_where('classes', ['id' => $class_id])->row();
+            $class_name = $cls ? $cls->class : '';
+        }
+    
+        // Get section name
+        $section_name = '';
+        if (!empty($section_id)) {
+            $sec = $this->db->get_where('sections', ['id' => $section_id])->row();
+            $section_name = $sec ? $sec->section : '';
+        }
+    
+        // Pick template
+        $type = ($attendence_type_id == 1)
+                ? 'student_present_attendence'
+                : 'student_absent_attendence';
+        $this->db->where('type', $type);
+        $tpl = $this->db->get('notification_setting')->row();
+    
+        if (!$tpl || empty($tpl->template)) {
+            echo json_encode([
+                'success' => false,
+                'message' => 'Template not configured. Please set it via Edit Template button.',
+                'csrf'    => $this->security->get_csrf_hash()
+            ]);
+            return;
+        }
+    
+        $detail = [
+            'student_name' => $student_name,
+            'mobileno'     => $parent_phone,
+            'date'         => $date,
+            'admission_no' => $admission_no,
+            'roll_no'      => $roll_no,
+            'class'        => $class_name,
+            'section'      => $section_name,
+        ];
+    
+        $this->load->library('Whatsappgateway');
+    
+        if ($attendence_type_id == 1) {
+            $this->whatsappgateway->sendPresentAttendancenotification(
+                $detail, $tpl->template, $tpl->whatsapp_template_id, $parent_phone
+            );
+        } else {
+            $this->whatsappgateway->sendAbsentAttendancenotification(
+                $detail, $tpl->template, $tpl->whatsapp_template_id, $parent_phone
+            );
+        }
+    
+        echo json_encode([
+            'success' => true,
+            'name'    => $student_name,
+            'mobile'  => $parent_phone,
+            'csrf'    => $this->security->get_csrf_hash()
+        ]);
+    }
+    public function saveAttendanceWATemplate() {
+        $type     = $this->input->post('type');
+        $template = $this->input->post('template');
+        $allowed  = ['student_absent_attendence', 'student_present_attendence'];
+        if (!in_array($type, $allowed) || empty($template)) {
+            echo json_encode(['status' => 0, 'message' => 'Invalid input']); return;
+        }
+        $this->db->where('type', $type);
+        $this->db->update('notification_setting', [
+            'template'    => $template,
+            'is_whatsapp' => 1,
+            'updated_at'  => date('Y-m-d H:i:s'),
+        ]);
+        echo json_encode(['status' => 1, 'message' => 'Template saved!']);
+    }
+    public function getAttendanceWATemplate() {
+        $type    = $this->input->post('type');
+        $allowed = ['student_absent_attendence', 'student_present_attendence'];
+        if (!in_array($type, $allowed)) {
+            echo json_encode(['template' => '']); return;
+        }
+        $this->db->where('type', $type);
+        $row = $this->db->get('notification_setting')->row();
+        echo json_encode([
+            'template'             => $row ? $row->template : '',
+            'whatsapp_template_id' => $row ? $row->whatsapp_template_id : '',
+            'is_whatsapp'          => $row ? $row->is_whatsapp : 0,
+        ]);
     }
 
 }
