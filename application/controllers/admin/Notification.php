@@ -808,9 +808,136 @@ class Notification extends Admin_Controller
         $array = array('status' => 'success', 'error' => '', 'message' => $this->lang->line('record_deleted_successfully'));  
         $this->output->set_content_type('application/json')->set_output(json_encode($array));  
     }
+    public function send_whatsapp_notice() {
+        $title    = $this->input->post('title');
+        $message  = strip_tags($this->input->post('message')); // strip HTML from wysihtml5
+        $visible  = $this->input->post('visible');             // array: student, parent, 2, 3...
+    
+        if (empty($message) || empty($visible)) {
+            echo json_encode(['status' => 0, 'message' => 'Message and recipients are required.']);
+            return;
+        }
+    
+        $this->load->library('Whatsappgateway');
+    
+        $sent   = 0;
+        $failed = 0;
+        $numbers_sent = []; // avoid duplicate sends
+    
+        foreach ($visible as $recipient) {
+    
+            // ---- PARENTS ----
+            if ($recipient === 'parent') {
+                $students = $this->student_model->getStudents();
+                if (!empty($students)) {
+                    foreach ($students as $s) {
+                        $phone = $s['guardian_phone'] ?? '';
+                        if (!empty($phone) && !in_array($phone, $numbers_sent)) {
+                            $result = $this->whatsappgateway->sendDirectMessage($phone, $message);
+                            $result ? $sent++ : $failed++;
+                            $numbers_sent[] = $phone;
+                        }
+                    }
+                }
+    
+            // ---- STUDENTS ----
+            } elseif ($recipient === 'student') {
+                $students = $this->student_model->getStudents();
+                if (!empty($students)) {
+                    foreach ($students as $s) {
+                        $phone = $s['mobileno'] ?? '';
+                        if (!empty($phone) && !in_array($phone, $numbers_sent)) {
+                            $result = $this->whatsappgateway->sendDirectMessage($phone, $message);
+                            $result ? $sent++ : $failed++;
+                            $numbers_sent[] = $phone;
+                        }
+                    }
+                }
+    
+            // ---- STAFF by role ----
+            } elseif (is_numeric($recipient)) {
+                $staff_list = $this->staff_model->getEmployeeByRoleID($recipient);
+                if (!empty($staff_list)) {
+                    foreach ($staff_list as $st) {
+                        $phone = $st['contact_no'] ?? '';
+                        if (!empty($phone) && !in_array($phone, $numbers_sent)) {
+                            $result = $this->whatsappgateway->sendDirectMessage($phone, $message);
+                            $result ? $sent++ : $failed++;
+                            $numbers_sent[] = $phone;
+                        }
+                    }
+                }
+            }
+        }
+    
+        echo json_encode([
+            'status'  => 1,
+            'sent'    => $sent,
+            'failed'  => $failed,
+            'message' => "WhatsApp sent: {$sent} success, {$failed} failed.",
+            'csrf'    => $this->security->get_csrf_hash()
+        ]);
+    }
 
-
-
-
+    public function get_whatsapp_recipients() {
+        $visible = $this->input->post('visible');
+        $result  = [];
+    
+        foreach ($visible as $recipient) {
+            if ($recipient === 'student') {
+                $students = $this->student_model->getStudents();
+                $list = [];
+                if (!empty($students)) {
+                    foreach ($students as $s) {
+                        $list[] = [
+                            'name'   => trim(($s['firstname'] ?? '') . ' ' . ($s['lastname'] ?? '')),
+                            'mobile' => $s['mobileno'] ?? '',
+                            'extra'  => 'Adm: ' . ($s['admission_no'] ?? ''),
+                        ];
+                    }
+                }
+                $result['student'] = ['label' => 'Students', 'list' => $list];
+    
+            } elseif ($recipient === 'parent') {
+                $students = $this->student_model->getStudents();
+                $list = [];
+                if (!empty($students)) {
+                    foreach ($students as $s) {
+                        if (!empty($s['guardian_phone'])) {
+                            $list[] = [
+                                'name'   => trim(($s['guardian_name'] ?? '') ?: (($s['father_name'] ?? '') . ' (Father)')),
+                                'mobile' => $s['guardian_phone'] ?? '',
+                                'extra'  => 'Ward: ' . trim(($s['firstname'] ?? '') . ' ' . ($s['lastname'] ?? '')),
+                            ];
+                        }
+                    }
+                }
+                $result['parent'] = ['label' => 'Parents', 'list' => $list];
+    
+            } elseif (is_numeric($recipient)) {
+                $staff_list = $this->staff_model->getEmployeeByRoleID($recipient);
+                // Get role name
+                $role = $this->role_model->get($recipient);
+                $role_name = $role ? $role['name'] : 'Staff ' . $recipient;
+                $list = [];
+                if (!empty($staff_list)) {
+                    foreach ($staff_list as $st) {
+                        $list[] = [
+                            'name'   => trim(($st['name'] ?? '') . ' ' . ($st['surname'] ?? '')),
+                            'mobile' => $st['contact_no'] ?? '',
+                            'extra'  => $st['employee_id'] ?? '',
+                        ];
+                    }
+                }
+                $result['role_' . $recipient] = ['label' => $role_name, 'list' => $list];
+            }
+        }
+    
+        echo json_encode([
+            'status' => 1,
+            'data'   => $result,
+            'csrf'   => $this->security->get_csrf_hash()
+        ]);
+    }
 
 }
