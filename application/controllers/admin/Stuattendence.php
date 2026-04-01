@@ -435,10 +435,11 @@ class Stuattendence extends Admin_Controller
     
         $detail = [
             'student_name' => $student_name,
-            'mobileno'     => $parent_phone,
+            'mobileno'     => $this->input->post('mobileno') ?? $parent_phone,
             'date'         => $date,
             'admission_no' => $admission_no,
             'roll_no'      => $roll_no,
+            'father_name'  => $this->input->post('father_name') ?? '',
             'class'        => $class_name,
             'section'      => $section_name,
         ];

@@ -1,125 +1,29 @@
 <style type="text/css">
-    .radio {
-        padding-left: 20px;
-    }
-
-    .radio label {
-        display: inline-block;
-        vertical-align: middle;
-        position: relative;
-        padding-left: 5px;
-    }
-
-    .radio label::before {
-        content: "";
-        display: inline-block;
-        position: absolute;
-        width: 17px;
-        height: 17px;
-        left: 0;
-        margin-left: -20px;
-        border: 1px solid #cccccc;
-        border-radius: 50%;
-        background-color: #fff;
-        -webkit-transition: border 0.15s ease-in-out;
-        -o-transition: border 0.15s ease-in-out;
-        transition: border 0.15s ease-in-out;
-    }
-
-    .radio label::after {
-        display: inline-block;
-        position: absolute;
-        content: " ";
-        width: 11px;
-        height: 11px;
-        left: 3px;
-        top: 3px;
-        margin-left: -20px;
-        border-radius: 50%;
-        background-color: #555555;
-        -webkit-transform: scale(0, 0);
-        -ms-transform: scale(0, 0);
-        -o-transform: scale(0, 0);
-        transform: scale(0, 0);
-        -webkit-transition: -webkit-transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33);
-        -moz-transition: -moz-transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33);
-        -o-transition: -o-transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33);
-        transition: transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33);
-    }
-
-    .radio input[type="radio"] {
-        opacity: 0;
-        z-index: 1;
-    }
-
-    .radio input[type="radio"]:focus+label::before {
-        outline: thin dotted;
-        outline: 5px auto -webkit-focus-ring-color;
-        outline-offset: -2px;
-    }
-
-    .radio input[type="radio"]:checked+label::after {
-        -webkit-transform: scale(1, 1);
-        -ms-transform: scale(1, 1);
-        -o-transform: scale(1, 1);
-        transform: scale(1, 1);
-    }
-
-    .radio input[type="radio"]:disabled+label {
-        opacity: 0.65;
-    }
-
-    .radio input[type="radio"]:disabled+label::before {
-        cursor: not-allowed;
-    }
-
-    .radio.radio-inline {
-        margin-top: 0;
-    }
-
-    .radio-primary input[type="radio"]+label::after {
-        background-color: #337ab7;
-    }
-
-    .radio-primary input[type="radio"]:checked+label::before {
-        border-color: #337ab7;
-    }
-
-    .radio-primary input[type="radio"]:checked+label::after {
-        background-color: #337ab7;
-    }
-
-    .radio-danger input[type="radio"]+label::after {
-        background-color: #d9534f;
-    }
-
-    .radio-danger input[type="radio"]:checked+label::before {
-        border-color: #d9534f;
-    }
-
-    .radio-danger input[type="radio"]:checked+label::after {
-        background-color: #d9534f;
-    }
-
-    .radio-info input[type="radio"]+label::after {
-        background-color: #5bc0de;
-    }
-
-    .radio-info input[type="radio"]:checked+label::before {
-        border-color: #5bc0de;
-    }
-
-    .radio-info input[type="radio"]:checked+label::after {
-        background-color: #5bc0de;
-    }
+    .radio { padding-left: 20px; }
+    .radio label { display: inline-block; vertical-align: middle; position: relative; padding-left: 5px; }
+    .radio label::before { content: ""; display: inline-block; position: absolute; width: 17px; height: 17px; left: 0; margin-left: -20px; border: 1px solid #cccccc; border-radius: 50%; background-color: #fff; -webkit-transition: border 0.15s ease-in-out; -o-transition: border 0.15s ease-in-out; transition: border 0.15s ease-in-out; }
+    .radio label::after { display: inline-block; position: absolute; content: " "; width: 11px; height: 11px; left: 3px; top: 3px; margin-left: -20px; border-radius: 50%; background-color: #555555; -webkit-transform: scale(0, 0); -ms-transform: scale(0, 0); -o-transform: scale(0, 0); transform: scale(0, 0); -webkit-transition: -webkit-transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33); -moz-transition: -moz-transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33); -o-transition: -o-transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33); transition: transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33); }
+    .radio input[type="radio"] { opacity: 0; z-index: 1; }
+    .radio input[type="radio"]:focus+label::before { outline: thin dotted; outline: 5px auto -webkit-focus-ring-color; outline-offset: -2px; }
+    .radio input[type="radio"]:checked+label::after { -webkit-transform: scale(1, 1); -ms-transform: scale(1, 1); -o-transform: scale(1, 1); transform: scale(1, 1); }
+    .radio input[type="radio"]:disabled+label { opacity: 0.65; }
+    .radio input[type="radio"]:disabled+label::before { cursor: not-allowed; }
+    .radio.radio-inline { margin-top: 0; }
+    .radio-primary input[type="radio"]+label::after { background-color: #337ab7; }
+    .radio-primary input[type="radio"]:checked+label::before { border-color: #337ab7; }
+    .radio-primary input[type="radio"]:checked+label::after { background-color: #337ab7; }
+    .radio-danger input[type="radio"]+label::after { background-color: #d9534f; }
+    .radio-danger input[type="radio"]:checked+label::before { border-color: #d9534f; }
+    .radio-danger input[type="radio"]:checked+label::after { background-color: #d9534f; }
+    .radio-info input[type="radio"]+label::after { background-color: #5bc0de; }
+    .radio-info input[type="radio"]:checked+label::before { border-color: #5bc0de; }
+    .radio-info input[type="radio"]:checked+label::after { background-color: #5bc0de; }
 </style>
 
 <div class="content-wrapper" style="min-height: 946px;">
-    <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1><i class="fa fa-calendar-check-o"></i> <?php echo $this->lang->line('attendance'); ?> </h1>
     </section>
-    <!-- Main content -->
     <section class="content">
         <div class="row">
             <div class="col-md-12">
@@ -133,28 +37,21 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1"><?php echo $this->lang->line('class'); ?></label><small class="req"> *</small>
+                                        <label><?php echo $this->lang->line('class'); ?></label><small class="req"> *</small>
                                         <select autofocus="" id="class_id" name="class_id" class="form-control">
                                             <option value=""><?php echo $this->lang->line('select'); ?></option>
-                                            <?php
-                                            foreach ($classlist as $class) {
-                                            ?>
-                                                <option value="<?php echo $class['id'] ?>" <?php
-                                                                                            if ($class_id == $class['id']) {
-                                                                                                echo "selected =selected";
-                                                                                            }
-                                                                                            ?>><?php echo $class['class'] ?></option>
-                                            <?php
-                                                $count++;
-                                            }
-                                            ?>
+                                            <?php foreach ($classlist as $class) { ?>
+                                                <option value="<?php echo $class['id'] ?>" <?php if ($class_id == $class['id']) echo "selected=selected"; ?>>
+                                                    <?php echo $class['class'] ?>
+                                                </option>
+                                            <?php $count++; } ?>
                                         </select>
                                         <span class="text-danger"><?php echo form_error('class_id'); ?></span>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1"><?php echo $this->lang->line('section'); ?></label><small class="req"> *</small>
+                                        <label><?php echo $this->lang->line('section'); ?></label><small class="req"> *</small>
                                         <select id="section_id" name="section_id" class="form-control">
                                             <option value=""><?php echo $this->lang->line('select'); ?></option>
                                         </select>
@@ -163,16 +60,19 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">
-                                            <?php echo $this->lang->line('attendance_date'); ?>
-                                        </label>
-                                        <input name="date" placeholder="" type="text" class="form-control date" value="<?php echo set_value('date', date($this->customlib->getSchoolDateFormat())); ?>" readonly="readonly" />
+                                        <label><?php echo $this->lang->line('attendance_date'); ?></label>
+                                        <input name="date" type="text" class="form-control date"
+                                               value="<?php echo set_value('date', date($this->customlib->getSchoolDateFormat())); ?>"
+                                               readonly="readonly" />
                                         <span class="text-danger"><?php echo form_error('date'); ?></span>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <button type="submit" name="search" value="search" class="btn btn-primary btn-sm pull-right checkbox-toggle"><i class="fa fa-search"></i> <?php echo $this->lang->line('search'); ?></button>
+                                        <button type="submit" name="search" value="search"
+                                                class="btn btn-primary btn-sm pull-right checkbox-toggle">
+                                            <i class="fa fa-search"></i> <?php echo $this->lang->line('search'); ?>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -188,30 +88,32 @@
                                 </h3>
                                 <div class="box-tools pull-right">
                                     <?php if (!empty($resultlist)) { ?>
-                                    <button type="button" class="btn btn-info btn-sm"
-                                            style="margin-right:5px;"
-                                            onclick="openWAAttendTplModal()">
-                                        <i class="fa fa-pencil"></i> Edit Template
-                                    </button>
-                                    <button type="button" class="btn btn-success btn-sm"
-                                            onclick="openWAAttendanceModal()">
-                                        <i class="fa fa-whatsapp"></i> Send to Parents
-                                    </button>
+                                        <button type="button" class="btn btn-info btn-sm"
+                                                style="margin-right:5px;"
+                                                onclick="openWAAttendTplModal()">
+                                            <i class="fa fa-pencil"></i> Edit Template
+                                        </button>
+                                        <button type="button" class="btn btn-success btn-sm"
+                                                onclick="openWAAttendanceModal()">
+                                            <i class="fa fa-whatsapp"></i> Send to Parents
+                                        </button>
                                     <?php } ?>
                                 </div>
                             </div>
 
                             <div class="box-body">
                                 <?php if (!empty($resultlist)) { ?>
-                                    <div class="mailbox-controls">
-                                        <div class="pull-right"></div>
-                                    </div>
+                                    <div class="mailbox-controls"><div class="pull-right"></div></div>
                                     <input type="hidden" name="class_id" value="<?php echo $class_id; ?>">
                                     <input type="hidden" name="section_id" value="<?php echo $section_id; ?>">
                                     <input type="hidden" name="date" value="<?php echo $date; ?>">
-                                    <div class="download_label"><?php echo $this->lang->line('attendance_list'); ?> <?php echo $this->customlib->get_postmessage(); ?></div>
+                                    <div class="download_label">
+                                        <?php echo $this->lang->line('attendance_list'); ?>
+                                        <?php echo $this->customlib->get_postmessage(); ?>
+                                    </div>
                                     <div class="table-responsive">
-                                        <table class="table table-hover table-striped myexample" data-export-title="<?php echo $this->lang->line('attendance_list'); ?>">
+                                        <table class="table table-hover table-striped myexample"
+                                               data-export-title="<?php echo $this->lang->line('attendance_list'); ?>">
                                             <thead>
                                                 <tr>
                                                     <th class="dt-body-left dt-head-left">#</th>
@@ -227,8 +129,7 @@
                                             <tbody>
                                                 <?php
                                                 $row_count = 1;
-                                                foreach ($resultlist as $key => $value) {
-                                                ?>
+                                                foreach ($resultlist as $key => $value) { ?>
                                                     <tr>
                                                         <td class="dt-body-left dt-head-left"><?php echo $row_count; ?></td>
                                                         <td class="dt-body-left dt-head-left"><?php echo $value['admission_no']; ?></td>
@@ -236,7 +137,10 @@
                                                             <td class="dt-body-left dt-head-left"><?php echo $value['roll_no']; ?></td>
                                                         <?php } ?>
                                                         <td>
-                                                            <?php echo $this->customlib->getFullName($value['firstname'], $value['middlename'], $value['lastname'], $sch_setting->middlename, $sch_setting->lastname); ?>
+                                                            <?php echo $this->customlib->getFullName(
+                                                                $value['firstname'], $value['middlename'], $value['lastname'],
+                                                                $sch_setting->middlename, $sch_setting->lastname
+                                                            ); ?>
                                                         </td>
                                                         <td class="noteinput">
                                                             <?php
@@ -245,8 +149,7 @@
                                                                 $att_type = str_replace(" ", "_", strtolower($type['type']));
                                                                 if ($value['date'] != "xxx") {
                                                                     if ($value['attendence_type_id'] == $type['id']) {
-                                                                        if ($type['id'] == "1") {
-                                                            ?>
+                                                                        if ($type['id'] == "1") { ?>
                                                                             <small class="label label-success"><?php echo $this->lang->line($att_type) ?></small>
                                                                         <?php } elseif ($type['id'] == "3") { ?>
                                                                             <small class="label label-warning"><?php echo $this->lang->line($att_type) ?></small>
@@ -262,7 +165,7 @@
                                                                     }
                                                                 } else { ?>
                                                                     <div class="radio radio-info radio-inline">
-                                                                        <input <?php if ($c == 1) { echo "checked"; } ?> type="radio"
+                                                                        <input <?php if ($c == 1) echo "checked"; ?> type="radio"
                                                                             id="attendencetype<?php echo $value['student_session_id']; ?>"
                                                                             value="<?php echo $type['id'] ?>"
                                                                             name="attendencetype<?php echo $value['student_session_id']; ?>">
@@ -274,9 +177,7 @@
                                                         </td>
                                                         <td><?php echo $value['remark']; ?></td>
                                                     </tr>
-                                                <?php
-                                                    $row_count++;
-                                                } ?>
+                                                <?php $row_count++; } ?>
                                             </tbody>
                                         </table>
                                 <?php } else { ?>
@@ -289,14 +190,14 @@
                         </div>
                 </div>
             <?php } ?>
-    </section><!-- /content -->
-</div><!-- /content-wrapper -->
+    </section>
+</div>
 
 
 <?php if (isset($resultlist) && !empty($resultlist)) { ?>
 
 <!-- ================================================================
-     SHARED JS VARIABLES (used by both modals)
+     SHARED JS VARIABLES
 ================================================================ -->
 <script>
 var waDate     = '<?php echo addslashes($date); ?>';
@@ -304,7 +205,6 @@ var waSiteUrl  = '<?php echo site_url(); ?>';
 var waCsrfName = '<?php echo $this->security->get_csrf_token_name(); ?>';
 var waCsrfHash = '<?php echo $this->security->get_csrf_hash(); ?>';
 
-// Student data from PHP
 var waAllStudents = <?php
     $wa_data = [];
     foreach ($resultlist as $v) {
@@ -312,15 +212,11 @@ var waAllStudents = <?php
             'student_session_id' => $v['student_session_id'],
             'admission_no'       => $v['admission_no'],
             'roll_no'            => $v['roll_no'] ?? '',
-            'name'               => trim(
-                                        $v['firstname']
-                                        . ' ' . ($v['middlename'] ?? '')
-                                        . ' ' . ($v['lastname'] ?? '')
-                                    ),
+            'name'               => trim($v['firstname'] . ' ' . ($v['middlename'] ?? '') . ' ' . ($v['lastname'] ?? '')),
             'attendence_type_id' => $v['attendence_type_id'] ?? 0,
             'date_marked'        => $v['date'],
-            'parent_phone'       => $v['parent_phone'] ?? '',  // ← add this
-            'father_name'        => $v['father_name'] ?? '',   // ← add this
+            'parent_phone'       => $v['parent_phone'] ?? '',
+            'father_name'        => $v['father_name'] ?? '',
         ];
     }
     echo json_encode($wa_data);
@@ -345,27 +241,21 @@ var waAllStudents = <?php
             </div>
 
             <div class="modal-body">
-
-                <!-- Filter + Edit Template button -->
                 <div class="row" style="margin-bottom:14px;">
                     <div class="col-md-8">
                         <label style="margin-right:10px;font-weight:600;">Send to:</label>
                         <div class="btn-group" id="waFilterGroup">
-                            <button type="button" class="btn btn-danger btn-sm active"
-                                    onclick="waSetFilter('absent')">
+                            <button type="button" class="btn btn-danger btn-sm active" onclick="waSetFilter('absent')">
                                 <i class="fa fa-times-circle"></i> Absent Only
                             </button>
-                            <button type="button" class="btn btn-success btn-sm"
-                                    onclick="waSetFilter('present')">
+                            <button type="button" class="btn btn-success btn-sm" onclick="waSetFilter('present')">
                                 <i class="fa fa-check-circle"></i> Present Only
                             </button>
-                            <button type="button" class="btn btn-default btn-sm"
-                                    onclick="waSetFilter('all')">
+                            <button type="button" class="btn btn-default btn-sm" onclick="waSetFilter('all')">
                                 <i class="fa fa-users"></i> All Students
                             </button>
                         </div>
-                        <span class="text-muted" style="margin-left:10px;font-size:13px;"
-                              id="waFilterCount"></span>
+                        <span class="text-muted" style="margin-left:10px;font-size:13px;" id="waFilterCount"></span>
                     </div>
                     <div class="col-md-4 text-right">
                         <button type="button" class="btn btn-info btn-sm"
@@ -375,36 +265,31 @@ var waAllStudents = <?php
                     </div>
                 </div>
 
-                <!-- Message Preview -->
                 <div class="panel panel-default" style="margin-bottom:12px;">
                     <div class="panel-heading" style="padding:8px 12px;">
                         <strong><i class="fa fa-mobile"></i> Message Preview</strong>
                         <small class="text-muted pull-right">From Notification Settings template</small>
                     </div>
                     <div class="panel-body" style="background:#ECE5DD;padding:12px;">
-                        <div style="background:#fff;border-radius:8px;padding:12px;
-                                    max-width:340px;box-shadow:0 1px 2px rgba(0,0,0,.2);">
+                        <div style="background:#fff;border-radius:8px;padding:12px;max-width:340px;box-shadow:0 1px 2px rgba(0,0,0,.2);">
                             <pre id="waAttendPreview"
-                                 style="font-size:12px;white-space:pre-wrap;margin:0;
-                                        font-family:inherit;background:transparent;
-                                        border:none;padding:0;">Loading...</pre>
+                                 style="font-size:12px;white-space:pre-wrap;margin:0;font-family:inherit;background:transparent;border:none;padding:0;">Loading...</pre>
                         </div>
                     </div>
                 </div>
 
-                <!-- Student Table -->
                 <div style="max-height:300px;overflow-y:auto;border:1px solid #ddd;border-radius:4px;">
                     <table class="table table-condensed table-hover" style="margin:0;font-size:13px;">
                         <thead style="background:#f4f4f4;">
-                        <tr>
-                            <th width="38"><input type="checkbox" id="waSelectAll" onchange="waToggleAll(this)" checked></th>
-                            <th>#</th>
-                            <th>Student Name</th>
-                            <th>Adm No</th>
-                            <th>Status</th>
-                            <th>Phone</th>      <!-- ← add this -->
-                            <th>WA Status</th>
-                        </tr>
+                            <tr>
+                                <th width="38"><input type="checkbox" id="waSelectAll" onchange="waToggleAll(this)" checked></th>
+                                <th>#</th>
+                                <th>Student Name</th>
+                                <th>Adm No</th>
+                                <th>Status</th>
+                                <th>Phone</th>
+                                <th>WA Status</th>
+                            </tr>
                         </thead>
                         <tbody id="waStudentTableBody"></tbody>
                     </table>
@@ -412,20 +297,15 @@ var waAllStudents = <?php
 
                 <div id="waSuccessAlert" class="alert alert-success" style="display:none;margin-top:10px;"></div>
                 <div id="waErrorAlert"   class="alert alert-danger"  style="display:none;margin-top:10px;"></div>
-
-            </div><!-- /modal-body -->
+            </div>
 
             <div class="modal-footer">
-                <span class="text-muted" id="waSendProgress"
-                      style="float:left;font-size:13px;padding-top:8px;"></span>
+                <span class="text-muted" id="waSendProgress" style="float:left;font-size:13px;padding-top:8px;"></span>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" id="waAttendSendBtn"
-                        class="btn btn-success btn-lg"
-                        onclick="waSendAttendance()">
+                <button type="button" id="waAttendSendBtn" class="btn btn-success btn-lg" onclick="waSendAttendance()">
                     <i class="fa fa-whatsapp"></i> Send Messages
                 </button>
             </div>
-
         </div>
     </div>
 </div>
@@ -439,33 +319,24 @@ var waAllStudents = <?php
         <div class="modal-content">
 
             <div class="modal-header" style="background:#128C7E;color:#fff;border-radius:4px 4px 0 0;">
-                <button type="button" class="close" data-dismiss="modal"
-                        style="color:#fff;opacity:1;"><span>×</span></button>
-                <h4 class="modal-title">
-                    <i class="fa fa-pencil"></i> Edit Attendance WhatsApp Template
-                </h4>
+                <button type="button" class="close" data-dismiss="modal" style="color:#fff;opacity:1;"><span>×</span></button>
+                <h4 class="modal-title"><i class="fa fa-pencil"></i> Edit Attendance WhatsApp Template</h4>
             </div>
 
             <div class="modal-body">
-
-                <!-- Absent / Present Tab Toggle -->
                 <div style="margin-bottom:14px;">
                     <label style="font-weight:600;margin-right:10px;">Template for:</label>
                     <div class="btn-group" id="tplTypeGroup">
-                        <button type="button" class="btn btn-danger btn-sm active"
-                                onclick="waAttTplSwitch('absent')">
+                        <button type="button" class="btn btn-danger btn-sm active" onclick="waAttTplSwitch('absent')">
                             <i class="fa fa-times-circle"></i> Absent Message
                         </button>
-                        <button type="button" class="btn btn-success btn-sm"
-                                onclick="waAttTplSwitch('present')">
+                        <button type="button" class="btn btn-success btn-sm" onclick="waAttTplSwitch('present')">
                             <i class="fa fa-check-circle"></i> Present Message
                         </button>
                     </div>
-                    <span class="text-muted" style="font-size:12px;margin-left:10px;"
-                          id="tplTypeSavedNote"></span>
+                    <span class="text-muted" style="font-size:12px;margin-left:10px;" id="tplTypeSavedNote"></span>
                 </div>
 
-                <!-- Variable Badges -->
                 <div class="form-group">
                     <label><strong>Available Variables</strong>
                         <small class="text-muted"> — click to insert at cursor</small>
@@ -483,9 +354,7 @@ var waAllStudents = <?php
                             '{{mobileno}}'     => 'Mobile No',
                         ];
                         foreach ($att_vars as $var => $label) : ?>
-                            <button type="button"
-                                    class="btn btn-xs btn-primary"
-                                    style="margin:2px 2px 4px 0;"
+                            <button type="button" class="btn btn-xs btn-primary" style="margin:2px 2px 4px 0;"
                                     onclick="waAttInsertVar('<?php echo $var; ?>')">
                                 <?php echo $var; ?>
                                 <small style="opacity:.8;">(<?php echo $label; ?>)</small>
@@ -498,7 +367,6 @@ var waAllStudents = <?php
                     </small>
                 </div>
 
-                <!-- Quick Default Templates -->
                 <div class="form-group">
                     <label><strong>Quick Load Default:</strong></label>&nbsp;
                     <button type="button" class="btn btn-xs btn-default" onclick="waAttLoadDefault('gujarati')">🇮🇳 Gujarati</button>
@@ -506,7 +374,6 @@ var waAllStudents = <?php
                     <button type="button" class="btn btn-xs btn-default" onclick="waAttLoadDefault('hindi')">🇮🇳 Hindi</button>
                 </div>
 
-                <!-- Textarea + Live Preview side by side -->
                 <div class="row">
                     <div class="col-md-7">
                         <div class="form-group">
@@ -522,28 +389,21 @@ var waAllStudents = <?php
                             <small class="text-muted"> (sample data)</small>
                         </label>
                         <div style="background:#ECE5DD;padding:12px;border-radius:6px;min-height:220px;">
-                            <div style="background:#fff;border-radius:8px;padding:12px;
-                                        box-shadow:0 1px 2px rgba(0,0,0,.2);max-width:280px;">
+                            <div style="background:#fff;border-radius:8px;padding:12px;box-shadow:0 1px 2px rgba(0,0,0,.2);max-width:280px;">
                                 <pre id="waAttTplPreview"
-                                     style="font-size:12px;white-space:pre-wrap;margin:0;
-                                            font-family:inherit;background:transparent;
-                                            border:none;padding:0;">Loading...</pre>
+                                     style="font-size:12px;white-space:pre-wrap;margin:0;font-family:inherit;background:transparent;border:none;padding:0;">Loading...</pre>
                             </div>
                         </div>
                     </div>
                 </div>
-
-            </div><!-- /modal-body -->
+            </div>
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button type="button" id="waAttTplSaveBtn"
-                        class="btn btn-success"
-                        onclick="waAttSaveTemplate()">
+                <button type="button" id="waAttTplSaveBtn" class="btn btn-success" onclick="waAttSaveTemplate()">
                     <i class="fa fa-save"></i> Save Template
                 </button>
             </div>
-
         </div>
     </div>
 </div>
@@ -555,13 +415,12 @@ var waAllStudents = <?php
 <script>
 var waCurrentFilter = 'absent';
 
-// ---- Filter helpers ----
 function waGetFiltered() {
     return waAllStudents.filter(function(s) {
-        if (s.date_marked === 'xxx') return false; // not yet marked
+        if (s.date_marked === 'xxx') return false;
         if (waCurrentFilter === 'absent')  return s.attendence_type_id != 1;
         if (waCurrentFilter === 'present') return s.attendence_type_id == 1;
-        return true; // all
+        return true;
     });
 }
 
@@ -574,7 +433,6 @@ function waSetFilter(f) {
     waLoadPreview();
 }
 
-// ---- Render student table ----
 function waRenderTable() {
     var students = waGetFiltered();
     var html = '';
@@ -587,14 +445,19 @@ function waRenderTable() {
             ? '<small class="text-success"><i class="fa fa-check"></i> ' + s.parent_phone + '</small>'
             : '<small class="text-danger"><i class="fa fa-times"></i> No mobile</small>';
 
+        var safeName   = s.name.replace(/"/g, '&quot;');
+        var safeFather = (s.father_name || '').replace(/"/g, '&quot;');
+
         html += '<tr id="waRow_' + s.student_session_id + '">'
             + '<td><input type="checkbox" class="waStudentChk"'
-            +     ' value="'      + s.student_session_id + '"'
-            +     ' data-type="'  + s.attendence_type_id + '"'
-            +     ' data-phone="' + s.parent_phone + '"'
-            +     ' data-name="'  + s.name + '"'
-            +     ' data-adm="'   + s.admission_no + '"'
-            +     ' data-roll="'  + s.roll_no + '"'
+            +     ' value="'         + s.student_session_id + '"'
+            +     ' data-type="'     + s.attendence_type_id + '"'
+            +     ' data-phone="'    + s.parent_phone + '"'
+            +     ' data-name="'     + safeName + '"'
+            +     ' data-adm="'      + s.admission_no + '"'
+            +     ' data-roll="'     + s.roll_no + '"'
+            +     ' data-father="'   + safeFather + '"'
+            +     ' data-mobileno="' + s.parent_phone + '"'
             +     (s.parent_phone ? '' : ' disabled')
             +     ' checked></td>'
             + '<td>' + (i + 1) + '</td>'
@@ -602,16 +465,13 @@ function waRenderTable() {
             + '<td>' + s.admission_no + '</td>'
             + '<td>' + badge + '</td>'
             + '<td>' + phoneBadge + '</td>'
-            + '<td><span id="waStatus_' + s.student_session_id
-            +     '" class="label label-default">'
-            +     (s.parent_phone ? 'Pending' : 'No mobile')
-            +     '</span></td>'
+            + '<td><span id="waStatus_' + s.student_session_id + '" class="label label-default">'
+            +     (s.parent_phone ? 'Pending' : 'No mobile') + '</span></td>'
             + '</tr>';
     });
 
     if (!html) {
-        html = '<tr><td colspan="7" class="text-center text-muted" style="padding:16px;">'
-             + 'No students match this filter</td></tr>';
+        html = '<tr><td colspan="7" class="text-center text-muted" style="padding:16px;">No students match this filter</td></tr>';
     }
 
     $('#waStudentTableBody').html(html);
@@ -623,7 +483,6 @@ function waToggleAll(cb) {
     $('.waStudentChk').prop('checked', $(cb).is(':checked'));
 }
 
-// ---- Load template preview in send modal ----
 function waLoadPreview() {
     $('#waAttendPreview').text('Loading...');
     $.ajax({
@@ -634,18 +493,20 @@ function waLoadPreview() {
         success: function(res) {
             var tpl = res.template || 'Template not set.';
             $('#waAttendPreview').text(
-                tpl.replace('{{student_name}}', 'Sample Student')
-                   .replace('{{date}}',         waDate)
-                   .replace('{{admission_no}}', 'ADM001')
-                   .replace('{{class}}',        'Class 5')
-                   .replace('{{section}}',      'A')
+                tpl.replace(/\{\{student_name\}\}/g, 'Jay Sharma')
+                   .replace(/\{\{date\}\}/g,         waDate)
+                   .replace(/\{\{admission_no\}\}/g, 'ADM001')
+                   .replace(/\{\{roll_no\}\}/g,      '5')
+                   .replace(/\{\{class\}\}/g,        'Class 1')
+                   .replace(/\{\{section\}\}/g,      'A')
+                   .replace(/\{\{father_name\}\}/g,  'Ramesh Sharma')
+                   .replace(/\{\{mobileno\}\}/g,     '9876543210')
             );
         },
         error: function() { $('#waAttendPreview').text('Could not load preview.'); }
     });
 }
 
-// ---- Open send modal ----
 function openWAAttendanceModal() {
     waCurrentFilter = 'absent';
     $('#waFilterGroup button').removeClass('active');
@@ -659,17 +520,18 @@ function openWAAttendanceModal() {
     $('#waAttendanceModal').modal('show');
 }
 
-// ---- Send messages one by one ----
 function waSendAttendance() {
     var selected = [];
     $('.waStudentChk:checked').each(function() {
         selected.push({
-            id:    $(this).val(),
-            type:  $(this).data('type'),
-            phone: $(this).data('phone'),
-            name:  $(this).data('name'),
-            adm:   $(this).data('adm'),
-            roll:  $(this).data('roll'),
+            id:       $(this).val(),
+            type:     $(this).data('type'),
+            phone:    $(this).data('phone'),
+            name:     $(this).data('name'),
+            adm:      $(this).data('adm'),
+            roll:     $(this).data('roll'),
+            father:   $(this).data('father'),
+            mobileno: $(this).data('mobileno'),
         });
     });
 
@@ -690,7 +552,7 @@ function waSendAttendance() {
                 .html('<i class="fa fa-whatsapp"></i> Send Messages');
             $('#waSendProgress').text('');
             $('#waSuccessAlert')
-                .text('Done! ✓ Sent: ' + sent + '  |  ✗ Failed/No mobile: ' + failed)
+                .text('Done! Sent: ' + sent + '  |  Failed/No mobile: ' + failed)
                 .show();
             return;
         }
@@ -707,6 +569,8 @@ function waSendAttendance() {
         postData['student_name']       = s.name;
         postData['admission_no']       = s.adm;
         postData['roll_no']            = s.roll;
+        postData['father_name']        = s.father;
+        postData['mobileno']           = s.mobileno;
         postData['class_id']           = '<?php echo $class_id; ?>';
         postData['section_id']         = '<?php echo $section_id; ?>';
 
@@ -718,11 +582,10 @@ function waSendAttendance() {
             success: function(res) {
                 var statusEl = $('#waStatus_' + s.id);
                 if (res.success) {
-                    statusEl.removeClass().addClass('label label-success').text('Sent ✓');
+                    statusEl.removeClass().addClass('label label-success').text('Sent');
                     sent++;
                 } else {
-                    statusEl.removeClass().addClass('label label-warning')
-                            .text(res.message || 'Failed');
+                    statusEl.removeClass().addClass('label label-warning').text(res.message || 'Failed');
                     failed++;
                 }
                 if (res.csrf) waCsrfHash = res.csrf;
@@ -730,8 +593,7 @@ function waSendAttendance() {
                 sendNext();
             },
             error: function() {
-                $('#waStatus_' + s.id).removeClass()
-                    .addClass('label label-danger').text('Error');
+                $('#waStatus_' + s.id).removeClass().addClass('label label-danger').text('Error');
                 failed++;
                 idx++;
                 sendNext();
@@ -755,8 +617,10 @@ var waAttDefaults = {
 "────────────────\n" +
 "👤 વિદ્યાર્થી: {{student_name}}\n" +
 "📋 એડ્મ. નં: {{admission_no}}\n" +
+"🎓 રોલ નં: {{roll_no}}\n" +
 "📅 તારીખ: {{date}}\n" +
-"🏫 વર્ગ: {{class}} - {{section}}\n\n" +
+"🏫 વર્ગ: {{class}} - {{section}}\n" +
+"👨 પિતા: {{father_name}}\n\n" +
 "આપના બાળક આજે શાળામાં *ગેરહાજર* રહ્યા છે.\n" +
 "કૃપા કરીને શાળાનો સંપર્ક કરો.\n\n" +
 "_EduRoot School Management_",
@@ -765,8 +629,10 @@ var waAttDefaults = {
 "────────────────\n" +
 "👤 Student: {{student_name}}\n" +
 "📋 Adm No: {{admission_no}}\n" +
+"🎓 Roll No: {{roll_no}}\n" +
 "📅 Date: {{date}}\n" +
-"🏫 Class: {{class}} - {{section}}\n\n" +
+"🏫 Class: {{class}} - {{section}}\n" +
+"👨 Father: {{father_name}}\n\n" +
 "Your ward was *ABSENT* from school today.\n" +
 "Please contact the school for more information.\n\n" +
 "_EduRoot School Management_",
@@ -775,8 +641,10 @@ var waAttDefaults = {
 "────────────────\n" +
 "👤 छात्र: {{student_name}}\n" +
 "📋 प्रवेश संख्या: {{admission_no}}\n" +
+"🎓 रोल नं: {{roll_no}}\n" +
 "📅 दिनांक: {{date}}\n" +
-"🏫 कक्षा: {{class}} - {{section}}\n\n" +
+"🏫 कक्षा: {{class}} - {{section}}\n" +
+"👨 पिता: {{father_name}}\n\n" +
 "आपका बच्चा आज विद्यालय में *अनुपस्थित* रहा है।\n" +
 "कृपया विद्यालय से संपर्क करें।\n\n" +
 "_EduRoot School Management_"
@@ -787,8 +655,10 @@ var waAttDefaults = {
 "────────────────\n" +
 "👤 વિદ્યાર્થી: {{student_name}}\n" +
 "📋 એડ્મ. નં: {{admission_no}}\n" +
+"🎓 રોલ નં: {{roll_no}}\n" +
 "📅 તારીખ: {{date}}\n" +
-"🏫 વર્ગ: {{class}} - {{section}}\n\n" +
+"🏫 વર્ગ: {{class}} - {{section}}\n" +
+"👨 પિતા: {{father_name}}\n\n" +
 "આપના બાળક આજે શાળામાં *હાજર* છે.\n\n" +
 "_EduRoot School Management_",
         english:
@@ -796,8 +666,10 @@ var waAttDefaults = {
 "────────────────\n" +
 "👤 Student: {{student_name}}\n" +
 "📋 Adm No: {{admission_no}}\n" +
+"🎓 Roll No: {{roll_no}}\n" +
 "📅 Date: {{date}}\n" +
-"🏫 Class: {{class}} - {{section}}\n\n" +
+"🏫 Class: {{class}} - {{section}}\n" +
+"👨 Father: {{father_name}}\n\n" +
 "Your ward is *PRESENT* in school today.\n\n" +
 "_EduRoot School Management_",
         hindi:
@@ -805,8 +677,10 @@ var waAttDefaults = {
 "────────────────\n" +
 "👤 छात्र: {{student_name}}\n" +
 "📋 प्रवेश संख्या: {{admission_no}}\n" +
+"🎓 रोल नं: {{roll_no}}\n" +
 "📅 दिनांक: {{date}}\n" +
-"🏫 कक्षा: {{class}} - {{section}}\n\n" +
+"🏫 कक्षा: {{class}} - {{section}}\n" +
+"👨 पिता: {{father_name}}\n\n" +
 "आपका बच्चा आज विद्यालय में *उपस्थित* है।\n\n" +
 "_EduRoot School Management_"
     }
@@ -819,7 +693,7 @@ var waAttSample = {
     admission_no: 'ADM001',
     roll_no:      '5',
     date:         waDate,
-    class:        'Class 5',
+    class:        'Class 1',
     section:      'A',
     father_name:  'Ramesh Sharma',
     mobileno:     '9876543210',
@@ -843,10 +717,7 @@ function waAttTplSwitch(type) {
     $('#tplTypeGroup button').eq(type === 'absent' ? 0 : 1).addClass('active');
     $('#tplTypeSavedNote').text('');
 
-    var dbType = type === 'absent'
-        ? 'student_absent_attendence'
-        : 'student_present_attendence';
-
+    var dbType = type === 'absent' ? 'student_absent_attendence' : 'student_present_attendence';
     var postData = { type: dbType };
     postData[waCsrfName] = waCsrfHash;
 
@@ -856,11 +727,7 @@ function waAttTplSwitch(type) {
         data:     postData,
         dataType: 'json',
         success: function(res) {
-            $('#waAttTplText').val(
-                (res.template && res.template.trim())
-                    ? res.template
-                    : waAttDefaults[type].gujarati
-            );
+            $('#waAttTplText').val((res.template && res.template.trim()) ? res.template : waAttDefaults[type].gujarati);
             waAttRefreshPreview();
         },
         error: function() {
@@ -875,8 +742,7 @@ function openWAAttendTplModal() {
     $('#tplTypeGroup button').removeClass('active');
     $('#tplTypeGroup button').eq(0).addClass('active');
     $('#tplTypeSavedNote').text('');
-    $('#waAttTplSaveBtn').prop('disabled', false)
-        .html('<i class="fa fa-save"></i> Save Template');
+    $('#waAttTplSaveBtn').prop('disabled', false).html('<i class="fa fa-save"></i> Save Template');
     waAttTplSwitch('absent');
     $('#waAttendTplModal').modal('show');
 }
@@ -899,12 +765,9 @@ function waAttSaveTemplate() {
     var tpl = $.trim($('#waAttTplText').val());
     if (!tpl) { alert('Please enter a template!'); return; }
 
-    var dbType = waAttCurrentTplType === 'absent'
-        ? 'student_absent_attendence'
-        : 'student_present_attendence';
+    var dbType = waAttCurrentTplType === 'absent' ? 'student_absent_attendence' : 'student_present_attendence';
 
-    $('#waAttTplSaveBtn').prop('disabled', true)
-        .html('<i class="fa fa-spinner fa-spin"></i> Saving...');
+    $('#waAttTplSaveBtn').prop('disabled', true).html('<i class="fa fa-spinner fa-spin"></i> Saving...');
 
     var postData = { type: dbType, template: tpl };
     postData[waCsrfName] = waCsrfHash;
@@ -916,20 +779,15 @@ function waAttSaveTemplate() {
         dataType: 'json',
         success: function(res) {
             if (res.status == 1) {
-                $('#tplTypeSavedNote').html(
-                    '<span class="text-success"><i class="fa fa-check"></i> Saved!</span>'
-                );
+                $('#tplTypeSavedNote').html('<span class="text-success"><i class="fa fa-check"></i> Saved!</span>');
                 if (res.csrf) waCsrfHash = res.csrf;
             } else {
                 alert('Error saving: ' + (res.message || 'Unknown error'));
             }
         },
-        error: function() {
-            alert('Server error. Please try again.');
-        },
+        error: function() { alert('Server error. Please try again.'); },
         complete: function() {
-            $('#waAttTplSaveBtn').prop('disabled', false)
-                .html('<i class="fa fa-save"></i> Save Template');
+            $('#waAttTplSaveBtn').prop('disabled', false).html('<i class="fa fa-save"></i> Save Template');
         }
     });
 }
@@ -974,9 +832,7 @@ function waAttSaveTemplate() {
                 success: function(data) {
                     $.each(data, function(i, obj) {
                         var select = "";
-                        if (section_id_post == obj.section_id) {
-                            var select = "selected=selected";
-                        }
+                        if (section_id_post == obj.section_id) { select = "selected=selected"; }
                         div_data += "<option value=" + obj.section_id + " " + select + ">" + obj.section + "</option>";
                     });
                     $('#section_id').html(div_data);
