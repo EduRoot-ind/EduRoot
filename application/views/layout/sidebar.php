@@ -11,8 +11,6 @@
         </form>
     <?php }?>
     <section class="sidebar" id="sibe-box">
-        <?php $this->load->view('layout/top_sidemenu');?>
-
         <ul class="sidebar-menu verttop">
             
 <!-- //==================sidebar dynamic======================= -->

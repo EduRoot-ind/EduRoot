@@ -163,10 +163,61 @@
         </script>
 
   <style type="text/css">
-		
-		span.flag-icon.flag-icon-us{
+		span.flag-icon.flag-icon-us {
 			text-orientation: mixed;
 		}
+        /* EduRoot — Nav tabs fix */
+        .nav-tabs-custom > .nav-tabs {
+            background: #F9F4EC !important;
+            border-bottom-color: #E8D5B0 !important;
+        }
+        .nav-tabs-custom > .nav-tabs > li.active {
+            border-bottom-color: #F59E0B !important;
+        }
+        .nav-tabs-custom > .nav-tabs > li.active > a,
+        .nav-tabs-custom > .nav-tabs > li.active:hover > a {
+            background-color: #ffffff !important;
+            color: #1C3A5E !important;
+            font-weight: 600 !important;
+        }
+        .nav-tabs-custom > .nav-tabs > li > a {
+            color: #6B4C2A !important;
+        }
+        .nav-tabs-custom > .nav-tabs > li > a:hover {
+            color: #1C3A5E !important;
+            background: transparent !important;
+        }
+
+        /* EduRoot — Amber button override (after theme.css) */
+        :root {
+            --bs-primary:          #F59E0B !important;
+            --bs-btn-border-color: #D97706 !important;
+            --bs-primary-hover:    #FBBF24 !important;
+            --bs-primary-contrast: #1C1209 !important;
+        }
+        .btn-primary, .btn.btn-primary, button.btn-primary, a.btn-primary {
+            background-color: #F59E0B !important;
+            background-image: none !important;
+            border-color: #D97706 !important;
+            color: #1C1209 !important;
+            font-weight: 600 !important;
+        }
+        .btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+            background-color: #FBBF24 !important;
+            border-color: #F59E0B !important;
+            color: #1C1209 !important;
+        }
+        .btn-info, .btn.btn-info, button.btn-info {
+            background-color: #F59E0B !important;
+            border-color: #D97706 !important;
+            color: #1C1209 !important;
+            font-weight: 600 !important;
+        }
+        .btn-info:hover, .btn-info:focus {
+            background-color: #FBBF24 !important;
+            border-color: #F59E0B !important;
+            color: #1C1209 !important;
+        }
   </style>
     </head>
 	
@@ -190,12 +241,94 @@
                         <span class="icon-bar"></span>
                     </a>				
 					
-                    <div class="col-lg-4 col-md-3 col-sm-2 col-xs-4">
-                        <span href="#"  class="sidebar-session">
-                            <?php echo $this->setting_model->getCurrentSchoolName(); ?>
-                        </span>
+                    <div class="col-lg-6 col-md-5 col-sm-4 col-xs-5">
+                        <div class="navbar-session-group">
+
+                            <!-- School Name -->
+                            <span class="sidebar-session d-none d-md-inline" style="margin-right:6px;">
+                                <?php echo $this->setting_model->getCurrentSchoolName(); ?>
+                            </span>
+
+                            <!-- Current Session Pill -->
+                            <?php if ($this->rbac->hasPrivilege('quick_session_change', 'can_view')) { ?>
+                            <div class="nav-session-item" data-toggle="modal" data-target="#sessionModal" title="<?php echo $this->lang->line('current_session'); ?>">
+                                <i class="fa fa-calendar nav-session-icon"></i>
+                                <span class="nav-session-text">
+                                    <?php echo $this->setting_model->getCurrentSessionName(); ?>
+                                </span>
+                                <i class="fa fa-pencil nav-session-edit"></i>
+                            </div>
+                            <?php } ?>
+
+                            <!-- Quick Links Icon Button -->
+                            <div class="nav-quicklinks-item" id="navQuickLinksItem">
+                                <a class="nav-quicklinks-btn"
+                                   id="navQuickLinksBtn"
+                                   href="#"
+                                   title="<?php echo $this->lang->line('quick_links'); ?>">
+                                    <i class="fa fa-th"></i>
+                                </a>
+                                <div class="quicklinks-dropdown" id="navQuickLinksDropdown">
+                                    <div class="side-navbar-width mCustomScrollbar-1">
+                                        <div class="card-columns-sidebar side-navbar-vertical" style="color: black;">
+                                            <?php
+                                            $side_list = side_menu_list('-1');
+                                            if (!empty($side_list)) {
+                                                foreach ($side_list as $sl_key => $sl_val) {
+                                                    $mod_perm   = access_permission_sidebar_remove_pipe($sl_val->access_permissions);
+                                                    $mod_access = false;
+                                                    if (!empty($mod_perm)) {
+                                                        foreach ($mod_perm as $mp_key => $mp_val) {
+                                                            $cat_perm = access_permission_remove_comma($mp_val);
+                                                            if ($this->rbac->hasPrivilege($cat_perm[0], $cat_perm[1])) {
+                                                                $mod_access = true;
+                                                                break;
+                                                            }
+                                                        }
+                                                    }
+                                                    if ($mod_access && $this->module_lib->hasModule($sl_val->short_code) && $this->module_lib->hasActive($sl_val->short_code)) {
+                                            ?>
+                                                    <div class="card-sidebar">
+                                                        <h4><i class="<?php echo $sl_val->icon; ?>"></i> <?php echo $this->lang->line($sl_val->lang_key); ?></h4>
+                                                        <?php if (!empty($sl_val->submenus)) { ?>
+                                                        <ul>
+                                                            <?php
+                                                            foreach ($sl_val->submenus as $sm_key => $sm_val) {
+                                                                $sb_perm   = access_permission_sidebar_remove_pipe($sm_val->access_permissions);
+                                                                $sb_access = false;
+                                                                if (!empty($sb_perm)) {
+                                                                    foreach ($sb_perm as $spk => $spv) {
+                                                                        $scp = access_permission_remove_comma($spv);
+                                                                        if ($this->rbac->hasPrivilege($scp[0], $scp[1])) {
+                                                                            $sb_access = true;
+                                                                            break;
+                                                                        }
+                                                                    }
+                                                                }
+                                                                if ($sb_access) {
+                                                                    if (!empty($sm_val->permission_group_id) && !$this->module_lib->hasActive($sm_val->short_code)) continue;
+                                                            ?>
+                                                                    <li><a href="<?php echo site_url($sm_val->url); ?>"><?php echo $this->lang->line($sm_val->lang_key); ?></a></li>
+                                                            <?php
+                                                                }
+                                                            }
+                                                            ?>
+                                                        </ul>
+                                                        <?php } ?>
+                                                    </div>
+                                            <?php
+                                                    }
+                                                }
+                                            }
+                                            ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
-                    <div class="col-lg-8 col-md-9 col-sm-10 col-xs-8">
+                    <div class="col-lg-6 col-md-7 col-sm-8 col-xs-7">
                         <div class="pull-right">
                             <?php if ($this->rbac->hasPrivilege('student', 'can_view')) {?>
                                 <form id="header_search_form" class="navbar-form navbar-left search-form" role="search"  action="<?php echo site_url('admin/admin/search'); ?>" method="POST">
@@ -475,4 +608,38 @@ if (!empty($image)) {
         }
         });
     }
+</script>
+<script>
+$(document).ready(function() {
+    /* EduRoot — Quick Links: direct style toggle to bypass !important */
+
+    var $dropdown = $('#navQuickLinksDropdown');
+    var $btn      = $('#navQuickLinksBtn');
+    var isOpen    = false;
+
+    $btn.on('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (isOpen) {
+            $dropdown[0].style.setProperty('display', 'none', 'important');
+            isOpen = false;
+        } else {
+            $dropdown[0].style.setProperty('display', 'block', 'important');
+            isOpen = true;
+        }
+    });
+
+    /* Close on outside click */
+    $(document).on('click', function(e) {
+        if (!$(e.target).closest('#navQuickLinksItem').length && isOpen) {
+            $dropdown[0].style.setProperty('display', 'none', 'important');
+            isOpen = false;
+        }
+    });
+
+    /* Stop clicks inside dropdown from closing */
+    $dropdown.on('click', function(e) {
+        e.stopPropagation();
+    });
+});
 </script>
